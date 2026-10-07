@@ -26,8 +26,9 @@ Spec-level decisions. Newest at the bottom. Status is **Accepted** unless noted.
 **Decision:** Before comparing, both the path and every pattern are normalized: `%XX` of an unreserved character is decoded, other `%XX` keep their bytes with upper-case hex, and control bytes, space, `0x7F` and non-ASCII bytes are percent-encoded. So `/%7Euser` equals `/~user`, and a raw UTF-8 path matches a rule written either raw or encoded.
 **Why:** RFC 9309 §2.2.2 says non-ASCII octets "MUST be percent-encoded" and percent-encoded unreserved octets "MUST be unencoded prior to comparison". Applying one normalization to both sides is the reading that makes equivalent URLs compare equal however either side is written.
 **Differs from Google:** Google encodes non-ASCII only in patterns, and doesn't decode unreserved `%XX`, so its `ID_Encoding` test expects a raw `ツ` path and `/foo/bar/baz` not to match encoded rules. Its own comment there says the unreserved case "should not be relied on". Those three translated cases use our answer.
-**Oracle:** protego agrees on every encoding case.
-**Affects:** spec §3.3, A6.
+**Invalid UTF-8 in a pattern** is matched by its original bytes (so `/caf\xE9` matches the path `/caf%E9`), never by the U+FFFD it's reported with.
+**Oracle:** protego agrees on every encoding case except that last one: it decodes the file as text first, so it matches the replacement character (spec-sourced case `encoding.invalid_utf8_rule_not_fffd`).
+**Affects:** spec §2, §3.3, A6, A9.
 
 ### D-005 — Past `max_bytes`, input is ignored and a cut line is dropped
 **Status:** Proposed

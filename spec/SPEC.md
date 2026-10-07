@@ -19,7 +19,7 @@
 | `StatusPolicy` | `parse`, `follow_redirect`, `allow_all`, `disallow_all` |
 | `Fetched` | `policy: parsed \| allow_all \| disallow_all`, `status: optional<u32>`, `robots: optional<RobotsFile>` |
 
-Values reported back (user agents, patterns, sitemaps) are UTF-8 text; bytes that aren't valid UTF-8 are replaced with U+FFFD in what's reported. Matching works on the original bytes (§3.3).
+Values reported back (user agents, patterns, sitemaps) are UTF-8 text. Bytes that aren't valid UTF-8 are replaced with U+FFFD in what's reported, **one U+FFFD per maximal invalid subpart** (Unicode's recommended practice, §3.9 of the Unicode Standard; what Python, Rust and Swift do), so `C0 80` is two U+FFFDs and `E2 82` is one. Matching always works on the pattern's **original bytes** (§3.3), never on the replacement text.
 
 ## 3. Operations
 
@@ -38,7 +38,7 @@ Lenient: **never fails**. In order:
 5. **Records** (by key). The parser tracks a current group and whether its **agent list is open**:
    - `user-agent`: if there's no current group or its agent list is closed, start a new group with an open agent list. Add the value to the current group's `user_agents`.
    - `allow`, `disallow`: ignored before the first `user-agent` line. Otherwise **close** the agent list, and a non-empty value adds a `Rule` to the current group. An empty value adds no rule but still closes the list.
-   - `crawl-delay` (extension): ignored before the first `user-agent` line. Otherwise it closes the agent list like a rule (D-009). The group keeps the **first** value that is a non-negative decimal (`[0-9]+(\.[0-9]+)?`), as `f64` seconds; others are skipped.
+   - `crawl-delay` (extension): ignored before the first `user-agent` line. Otherwise it closes the agent list like a rule (D-009). The group keeps the **first** value that is a non-negative decimal (`[0-9]+(\.[0-9]+)?`) and finite as an `f64` (correctly rounded), as seconds; others, including values too large for `f64`, are skipped.
    - `sitemap`: a non-empty value is appended to `sitemaps`. Not part of any group, and the agent list stays as it is.
    - Any other key: ignored, and the agent list stays as it is (D-009).
 
@@ -109,6 +109,7 @@ The crawler's groups (§3.2), in file order: the first group that has a `crawl_d
 | A6 | `%7E` vs `~`, raw UTF-8 vs `%E3%83%84` | Equal after normalization (D-004) | Same as ours | Compares bytes: not equal |
 | A7 | Missing colon (`disallow /`) | Accepted when exactly two words (D-006) | Same as ours | Same as ours |
 | A8 | HTTP 429 | `disallow_all` (D-008) | n/a | Same as ours |
+| A9 | A pattern with invalid UTF-8 | Matches by its original bytes (D-004) | Matches the U+FFFD text | Original bytes |
 
 Google behavior marked "GoogleOnly" in its tests (accepting typos such as `dissallow`, treating `index.html` as `/`, its line-length cap) is **not** part of this spec.
 
