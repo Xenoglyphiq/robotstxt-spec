@@ -8,9 +8,9 @@ The spec and conformance cases for robots.txt. Each language port lives in its o
 
 | Language | Repo | Package | Spec pinned | Conformance | Status |
 |---|---|---|---|---|---|
-| Julia | [`Xenoglyphiq/RobotsTxt.jl`](https://github.com/Xenoglyphiq/RobotsTxt.jl) | `RobotsTxt` | 0.1.2 | core ✓ io ✓ full ✓ (130/130) | feature-complete; first release pending |
-| Swift | [`Xenoglyphiq/robotstxt-swift`](https://github.com/Xenoglyphiq/robotstxt-swift) | `RobotsTxt` | 0.1.2 | core ✓ io ✓ full ✓ (130/130) | feature-complete; first release pending |
-| Zig | [`Xenoglyphiq/robotstxt-zig`](https://github.com/Xenoglyphiq/robotstxt-zig) | `robotstxt` | 0.1.2 | core ✓ io ✓ full ✓ (130/130) | feature-complete; first release pending |
+| Julia | [`Xenoglyphiq/RobotsTxt.jl`](https://github.com/Xenoglyphiq/RobotsTxt.jl) | `RobotsTxt` | 0.1.2 | core ✓ io ✓ full ✓ (130/130) | version 0.1.0 committed; General registration pending |
+| Swift | [`Xenoglyphiq/robotstxt-swift`](https://github.com/Xenoglyphiq/robotstxt-swift) | `RobotsTxt` | 0.1.2 | core ✓ io ✓ full ✓ (130/130) | **released 0.1.0**: git tag; Swift Package Index submission pending |
+| Zig | [`Xenoglyphiq/robotstxt-zig`](https://github.com/Xenoglyphiq/robotstxt-zig) | `robotstxt` | 0.1.2 | core ✓ io ✓ full ✓ (130/130) | **released v0.1.0**: git tag; tagged `zig-package` for zigistry to index |
 
 Install instructions and examples are in each port's repo.
 

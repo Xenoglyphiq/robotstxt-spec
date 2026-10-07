@@ -139,5 +139,5 @@ performance:
 
 ports:
   - { language: julia, status: m3, package: RobotsTxt, claims: [core, io, full], implements_spec: "0.1.2", dependency_tier: T0 }
-  - { language: swift, status: m3, package: RobotsTxt, claims: [core, io, full], implements_spec: "0.1.2", dependency_tier: T0, toolchain: "Swift tools 6.0" }
-  - { language: zig, status: m3, package: robotstxt, claims: [core, io, full], implements_spec: "0.1.2", dependency_tier: T0 }
+  - { language: swift, status: released, package: RobotsTxt, claims: [core, io, full], implements_spec: "0.1.2", dependency_tier: T0, toolchain: "Swift tools 6.0" }
+  - { language: zig, status: released, package: robotstxt, claims: [core, io, full], implements_spec: "0.1.2", dependency_tier: T0 }
