@@ -1,6 +1,6 @@
 # robots.txt — Spec
 
-> Capability id: `robotstxt` · Spec version: `0.1.0` · Status: draft
+> Capability id: `robotstxt` · Spec version: `0.1.1` · Status: draft
 > Implements [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html), the Robots Exclusion Protocol. Where the RFC is loose, Google's open-source parser ([`google/robotstxt`](https://github.com/google/robotstxt)) breaks the tie, and every place we differ from it is recorded in `DECISIONS.md`.
 
 ## 1. Scope
@@ -136,7 +136,7 @@ Google behavior marked "GoogleOnly" in its tests (accepting typos such as `dissa
 
 ## 8. Performance target
 
-Within 2× of a compiled Google-compatible reference, measured with the shared method once the bench input is pinned (planned for 0.1.x, as for PMTiles).
+Reference: the Rust `texting_robots` crate (pinned `=0.2.2`, Google-compatible). One pass parses `bench/robots.txt` once per crawler and runs `is_allowed` for the 10,000 lookups in `bench/paths.txt`; method and checksum in `bench/README.md`. Target: within 2× of the reference.
 
 ## 9. Security notes
 
