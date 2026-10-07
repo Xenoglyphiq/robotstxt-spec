@@ -31,7 +31,7 @@ from pathlib import Path
 from protego import Protego
 
 ORACLE = {"language": "python", "package": "protego", "version": "0.7.0", "script": "generate/generate.py"}
-SPEC_VERSION = "0.1.1"
+SPEC_VERSION = "0.1.2"
 GENERATED_AT = "2026-10-06T00:00:00Z"  # bump by hand when cases change
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -299,7 +299,7 @@ def spec_status_policy(status: int) -> str:
 # Spec transcription: fetch (io), over scripted responses
 # ---------------------------------------------------------------------------
 
-ORIGIN = re.compile(r"https?://[^/?#\s]+/?")
+ORIGIN = re.compile(r"https?://[^/?#@\s]+/?")  # host and optional port: no userinfo (spec §3.6)
 
 
 def resolve(base: str, location: str) -> str:
@@ -633,7 +633,8 @@ def build() -> None:
         add({"id": cid, "op": "fetch", "level": "io", "group": "fetch", "description": desc,
              "input": {"value": {"origin": origin, "responses": responses}},
              "expect": {"value": spec_fetch(origin, responses)}, "compare": "json_equal", "source": "spec"})
-    for cid, origin in [("fetch.error.path", O + "/x"), ("fetch.error.scheme", "ftp://example.com"), ("fetch.error.query", O + "?a")]:
+    for cid, origin in [("fetch.error.path", O + "/x"), ("fetch.error.scheme", "ftp://example.com"), ("fetch.error.query", O + "?a"),
+                       ("fetch.error.userinfo", "https://user:secret@example.com")]:
         try:
             spec_fetch(origin, {})
             raise AssertionError(cid)

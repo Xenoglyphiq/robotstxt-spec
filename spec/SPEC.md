@@ -1,6 +1,6 @@
 # robots.txt — Spec
 
-> Capability id: `robotstxt` · Spec version: `0.1.1` · Status: draft
+> Capability id: `robotstxt` · Spec version: `0.1.2` · Status: draft
 > Implements [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html), the Robots Exclusion Protocol. Where the RFC is loose, Google's open-source parser ([`google/robotstxt`](https://github.com/google/robotstxt)) breaks the tie, and every place we differ from it is recorded in `DECISIONS.md`.
 
 ## 1. Scope
@@ -86,7 +86,7 @@ The crawler's groups (§3.2), in file order: the first group that has a `crawl_d
 
 ### 3.6 `fetch(origin: string) -> Fetched` (io)
 
-`origin` is `http://` or `https://` followed by an authority (host and optional port) and at most a trailing `/`: no path, query or fragment. Anything else is `robotstxt.invalid_origin`, the only error `fetch` raises; a failed fetch is a policy, not an error.
+`origin` is `http://` or `https://` (lower case) followed by an authority (host and optional port) and at most a trailing `/`: no userinfo (`user@`), path, query or fragment. Anything else is `robotstxt.invalid_origin`, the only error `fetch` raises; a failed fetch is a policy, not an error.
 
 1. Request `origin + /robots.txt` (one `/`).
 2. No response (connection, TLS or timeout failure) → `disallow_all`, status absent.

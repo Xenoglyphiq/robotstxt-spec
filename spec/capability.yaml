@@ -2,7 +2,7 @@
 id: robotstxt
 name: robots.txt
 summary: "Parse robots.txt files and decide whether a crawler may fetch a path, per RFC 9309 (the Robots Exclusion Protocol)."
-spec_version: 0.1.1
+spec_version: 0.1.2
 
 implements:
   - name: RFC 9309 (Robots Exclusion Protocol)
