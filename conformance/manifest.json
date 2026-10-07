@@ -1,6 +1,6 @@
 {
   "capability": "robotstxt",
-  "spec_version": "0.1.1",
+  "spec_version": "0.1.2",
   "oracle": {
     "language": "python",
     "package": "protego",
@@ -3000,6 +3000,27 @@
       "input": {
         "value": {
           "origin": "https://example.com?a",
+          "responses": {}
+        }
+      },
+      "expect": {
+        "error": {
+          "kind": "invalid_input",
+          "code": "robotstxt.invalid_origin"
+        }
+      },
+      "compare": "exact",
+      "source": "spec"
+    },
+    {
+      "id": "fetch.error.userinfo",
+      "op": "fetch",
+      "level": "io",
+      "group": "fetch.error",
+      "description": "Not an origin",
+      "input": {
+        "value": {
+          "origin": "https://user:secret@example.com",
           "responses": {}
         }
       },

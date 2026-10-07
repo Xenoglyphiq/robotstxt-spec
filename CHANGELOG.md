@@ -2,6 +2,12 @@
 
 Spec releases. Ports vendor a tagged release into `.spec/`; the version here is `spec_version` in `spec/capability.yaml`.
 
+## 0.1.2 — 2026-10-07
+
+No behavior change for implementations that follow the text. One new case (130 total: 116 core, 14 io):
+
+- `fetch` rejects an origin with userinfo (`https://user@host`), as §3.6's "host and optional port" already said; new case `fetch.error.userinfo`. Found by comparing the three ports: Swift followed the text, Zig and Julia followed the 0.1.1 generator's looser pattern.
+
 ## 0.1.1 — 2026-10-06
 
 No behavior change for implementations that follow the 0.1.0 text. Four new cases (129 total: 116 core, 13 io) pin what 0.1.0 said but didn't test, found by the Julia port:
