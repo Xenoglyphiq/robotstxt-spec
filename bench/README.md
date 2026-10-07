@@ -26,4 +26,13 @@ The ratio is **port median ÷ reference median, measured in the same session** (
 cargo run --release --manifest-path bench/rust/Cargo.toml
 ```
 
-To be recorded in the same session as the first port's numbers.
+Recorded 2026-10-06 on an Apple M5 Pro (macOS 26.6.2), three interleaved rounds of all four harnesses in one session. Each figure is the median of the three rounds' medians; the ratio is against the reference from the same session.
+
+| Harness | Toolchain | Pass median | Ratio |
+|---|---|---|---|
+| Rust `texting_robots` 0.2.2 (reference) | rustc 1.99.0 | 13.10 ms | 1.00 |
+| Zig `robotstxt` | Zig 0.17.0, ReleaseFast | 14.26 ms | 1.09× |
+| Julia `RobotsTxt` | Julia 1.13.1 | 19.60 ms | 1.50× |
+| Swift `RobotsTxt` | Swift 6.4, `-c release` | 24.33 ms | 1.86× |
+
+All four reproduce checksum 24281055 on every pass. Each port's README carries its own row.
